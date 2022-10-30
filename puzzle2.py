@@ -54,19 +54,23 @@ class MyWindow(Gtk.Window):
 
                 
         self.thread=threading.Thread(target=self.uid, daemon=True)
+        self.thread_in_use=True
         self.thread.start()
         
     def clear(self, widget):
-        self.label1.set_text("Please log in with your university card")
-        self.css_provider.load_from_data(self.blue)
-        self.thread=threading.Thread(target=self.uid,daemon=True)
-        self.thread.start()
+        if(self.thread_in_use=False)
+            self.label1.set_text("Please log in with your university card")
+            self.css_provider.load_from_data(self.blue)
+            self.thread=threading.Thread(target=self.uid,daemon=True)
+            self.thread_in_use=True
+            self.thread.start()
         
     
     def uid(self):
         pn532=RFID()
         card=pn532.read_uid()
         self.label1.set_text("UID:  "+card.upper())
+        self.thread_in_use=False
         self.css_provider.load_from_data(self.red)
   
         
@@ -74,3 +78,9 @@ win = MyWindow()
 win.connect("destroy", Gtk.main_quit)
 win.show_all()
 Gtk.main()
+
+
+
+
+
+
