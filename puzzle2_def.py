@@ -59,16 +59,12 @@ class MyWindow(Gtk.Window):
     #cua de threads
     def cuathread(self):
         GLib.idle_add(self.uid)
-    #crea un thread nou i l'afegeix a la cua   
-    def createthread(self):
-        thread= threading.Thread(target=self.cuathread)
-        thread.start()
     #funcio per tornar a la pantalla inicial i tornar a començar el programa   
     def clear(self, widget):
         if(self.thread_in_use=False)
             self.label1.set_text("Please log in with your university card")
             self.css_provider.load_from_data(self.blue)
-            self.thread=threading.Thread(target=self.createthread,daemon=True)
+            self.thread=threading.Thread(target=self.cuathread,daemon=True)
             self.thread_in_use=True
             self.thread.start()
         
